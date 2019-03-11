@@ -3,11 +3,30 @@ from matrix import *
 
 
 def add_circle( points, cx, cy, cz, r, step ):
-    pass
+    i=0
+    while i<1:
+        x0=r*math.cos(2*math.pi*i)+cx
+        y0=r*math.sin(2*math.pi*i)+cy
+        x1=r*math.cos(2*math.pi*(i+step))+cx
+        y1=r*math.sin(2*math.pi*(i+step))+cy
+        add_edge(points,x0,y0,cz,x1,y1,cz)
+        i+=step
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-    pass
-
+    i=0
+    if curve_type == "bezier":
+        t=make_bezier()
+    else:
+        t=make_hermite()
+    while i<1:
+        arr=generate_curve_coefs(x0,x1,x2,x3,t)
+        arr2=generate_curve_coefs(y0,y1,y2,y3,t)
+        c0=arr[0]*math.pow(i,3)+arr[1]*math.pow(i,2)+arr[2]*i+arr[3]
+        c1=arr2[0]*math.pow(i,3)+arr2[1]*math.pow(i,2)+arr2[2]*i+arr2[3]
+        c2=arr[0]*math.pow(i+step,3)+arr[1]*math.pow(i+step,2)+arr[2]*(i+step)+arr[3]
+        c3=arr2[0]*math.pow(i+step,3)+arr2[1]*math.pow(i+step,2)+arr2[2]*(i+step)+arr2[3]
+        add_edge(points,c0,c1,0,c2,c3,0)            
+        i+=step
 
 def draw_lines( matrix, screen, color ):
     if len(matrix) < 2:

@@ -8,15 +8,26 @@ z0  z1  ... zn
 1  1        1
 """
 import math
+import copy
 
 def make_bezier():
-    pass
+    return [[-1,3,-3,1],
+            [3,-6,-3,0],
+            [-3,3,0,0],
+            [1,0,0,0]
+            ]
 
 def make_hermite():
-    pass
+    return [[2,-3,0,1],
+            [-2,3,0,0],
+            [1,-2,1,0],
+            [1,-1,0,0]
+            ]
 
 def generate_curve_coefs( p0, p1, p2, p3, t ):
-    pass
+    p=[[p0,p1,p2,p3]]
+    matrix_mult(t,p)
+    return p[0]
 
 
 def make_translate( x, y, z ):
@@ -97,7 +108,6 @@ def matrix_mult( m1, m2 ):
                             m1[2][r] * tmp[2] +
                             m1[3][r] * tmp[3])
         point+= 1
-
 
 def new_matrix(rows = 4, cols = 4):
     m = []
