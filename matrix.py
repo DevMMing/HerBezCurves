@@ -8,7 +8,6 @@ z0  z1  ... zn
 1  1        1
 """
 import math
-import copy
 
 def make_bezier():
     return [[-1,3,-3,1],
