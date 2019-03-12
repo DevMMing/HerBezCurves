@@ -10,24 +10,25 @@ z0  z1  ... zn
 import math
 
 def make_bezier():
-    return [[-1,3,-3,1],
-            [3,-6,-3,0],
-            [-3,3,0,0],
-            [1,0,0,0]
-            ]
+    b=[]
+    b.append([-1,3,-3,1])
+    b.append([3,-6,3,0])
+    b.append([-3,3,0,0])
+    b.append([1,0,0,0])
+    return b
 
 def make_hermite():
-    return [[2,-3,0,1],
-            [-2,3,0,0],
-            [1,-2,1,0],
-            [1,-1,0,0]
-            ]
+    h=[]
+    h.append([2,-3,0,1])
+    h.append([-2,3,0,0])
+    h.append([1,-2,1,0])
+    h.append([1,-1,0,0])
+    return h
 
 def generate_curve_coefs( p0, p1, p2, p3, t ):
     p=[[p0,p1,p2,p3]]
     matrix_mult(t,p)
     return p[0]
-
 
 def make_translate( x, y, z ):
     t = new_matrix()

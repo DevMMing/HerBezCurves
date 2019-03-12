@@ -4,7 +4,7 @@ from matrix import *
 
 def add_circle( points, cx, cy, cz, r, step ):
     i=0
-    while i<1:
+    while i<1.0:
         x0=r*math.cos(2*math.pi*i)+cx
         y0=r*math.sin(2*math.pi*i)+cy
         i+=step
@@ -13,24 +13,21 @@ def add_circle( points, cx, cy, cz, r, step ):
         add_edge(points,x0,y0,cz,x1,y1,cz)
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-    i=0
     if curve_type == "bezier":
         t=make_bezier()
     else:
         t=make_hermite()
+    x=generate_curve_coefs(x0,x1,x2,x3,t)
+    y=generate_curve_coefs(y0,y1,y2,y3,t)
+    i=0
     while i<1:
-        arr=generate_curve_coefs(x0,x1,x2,x3,t)
-        arr2=generate_curve_coefs(y0,y1,y2,y3,t)
-        c0=cubic(arr,i)
-        c1=cubic(arr2,i)
+        c0=cubic(x,i)
+        c1=cubic(y,i)
         i+=step
-        c2=cubic(arr,i)
-        c3=cubic(arr2,i)
-        print("c0")
-        print(c0)
-        print("c1")
-        print(c0)
+        c2=cubic(x,i)
+        c3=cubic(y,i)
         add_edge(points,c0,c1,0,c2,c3,0)
+
 def cubic(arr,i):
     return arr[0]*math.pow(i,3)+arr[1]*math.pow(i,2)+arr[2]*i+arr[3]
 def draw_lines( matrix, screen, color ):
